@@ -15,7 +15,7 @@
             </div>
             <div class="col-10 mx-auto text-center">
                 <hr class="light" />
-                <p>Copyright 2022. Design by FTeam.</p>
+                <p>Copyright 2023. Design by FTeam.</p>
             </div>
         </div>
 
