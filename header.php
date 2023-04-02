@@ -85,3 +85,48 @@ include 'config/config.php';
     <!--Hết Menu tài khoản khi đăng nhập-->
     <!--End-Navigation-->
     <!--Body-->
+
+    <script>
+        function update_cart(product_id, cart_product_size) {
+            var quantity_input = document.getElementById("product_quantity_" + product_id + "_" + cart_product_size);
+            var quantity = parseInt(quantity_input.value);
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == XMLHttpRequest.DONE) {
+                    location.reload(); // Tải lại trang để cập nhật giỏ hàng
+                }
+            }
+            xhr.open("POST", "update-cart.php");
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send("product_id=" + product_id + "&cart_product_size=" + cart_product_size + "&cart_product_quantity=" +
+                quantity);
+        }
+
+        var update_buttons = document.querySelectorAll(".product-update-button");
+        for (var i = 0; i < update_buttons.length; i++) {
+            var button = update_buttons[i];
+            button.addEventListener("click", function() {
+                var product_id = this.getAttribute("data-product-id");
+                var cart_product_size = this.getAttribute("data-cart-product-size");
+                update_cart(product_id, cart_product_size);
+            });
+        }
+    </script>
+    <script>
+        function del_cart(product_id, cart_product_size) {
+            if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')) {
+                // Gửi yêu cầu xóa sản phẩm tới file PHP
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        document.getElementById("product_" + product_id + "_" + cart_product_size).remove();
+                        location.reload(); // Tải lại trang để cập nhật giỏ hàng
+                        alert("Xóa giỏ hàng thành công!");
+                    }
+                };
+                xmlhttp.open("GET", "delete_cart.php?product_id=" + product_id + "&cart_product_size=" + cart_product_size,
+                    true);
+                xmlhttp.send();
+            }
+        }
+    </script>

@@ -348,8 +348,13 @@ class Cart extends DB
         $cart_product_size = mysqli_escape_string($this->conn, $cart_product_size);
         $cart_product_quantity = mysqli_escape_string($this->conn, $cart_product_quantity);
         $b = mysqli_query($this->conn, "UPDATE cart SET `cart_product_quantity` = '$cart_product_quantity' WHERE user_id = '$user_id' AND product_id = '$product_id' AND cart_product_size = '$cart_product_size'");
-        if ($b) return true;
-        else return false;
+        if ($b) {
+            echo "Update successfully!";
+            return true;
+        } else {
+            echo "Error: " . mysqli_error($this->conn);
+            return false;
+        }
     }
     public function deleteCart($user_id, $product_id, $cart_product_size)
     {
@@ -357,8 +362,8 @@ class Cart extends DB
         $product_id = mysqli_escape_string($this->conn, $product_id);
         $cart_product_size = mysqli_escape_string($this->conn, $cart_product_size);
         $b = mysqli_query($this->conn, "DELETE FROM cart WHERE user_id = $user_id AND product_id = $product_id AND cart_product_size = '$cart_product_size'");
-        if ($b) return true;
-        else return false;
+        if ($b) return "Xóa sản phẩm thành công!";
+        else return "Xóa sản phẩm thất bại!";
     }
     public function deleteCartsByUserId($user_id)
     {

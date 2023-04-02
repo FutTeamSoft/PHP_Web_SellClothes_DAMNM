@@ -80,7 +80,6 @@ minus.addEventListener("click", () => {
     $("#num").val($(".num").text());
   }
 });
-
 // hiện thông báo khi thêm sản phẩm vào giỏ hàng
 // Toast function
 function toast({ title = "", message = "", type = "info", duration = 3000 }) {
